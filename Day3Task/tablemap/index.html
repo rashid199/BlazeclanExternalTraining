@@ -1,0 +1,118 @@
+<html>
+    <head><link rel="stylesheet" href="style.css"></head>
+
+    <body>
+
+        <table id="table1">
+            <tr>
+                <td>Product ID</td>
+                <td><input type="text" id="i1" class="ip" onkeyup="checkDuplicate(this.value);"></td>
+            </tr>
+
+            <tr>
+                <td>Product Name</td>
+                <td><input type="text" id="i2" class="ip"></td>
+            </tr>
+
+            <tr>
+                <td>Product Price</td>
+                <td><input type="number" id="i3" class="ip" onkeyup="validatePrice()"></td>
+            </tr>
+
+            <tr>
+                <td>Product Category</td>
+                <td><select id="i4" onchange="optionValidate(this.value);"><option selected disabled>Select Option</option><option>ECT</option><option>ECL</option><option>FOD</option></select></td>
+            </tr>
+
+            <tr>
+                <td><button onclick="clr()">CLEAR</button></td>
+                <td><button onclick="sbmt()" id="submitbtn">SUBMIT</button></td>
+            </tr>
+
+
+        </table><br><br>
+        
+        <select  id="filterCategory">
+            <option>Id</option>
+            <option>Name</option>
+            <option>Category</option>
+            <option>Price</option>
+        </select>
+
+            <span>Value:<input type="text" id="filterValue">&nbsp;&nbsp;&nbsp;<button onclick="filterRecords();">Filter</button>&nbsp;&nbsp;&nbsp;Sort:<input type="radio" onclick="ascSort(true);" name="sortRadio">&nbsp;&nbsp;&nbsp;Reverse:<input type="radio" onclick="ascSort(false);" name="sortRadio"></span>
+
+        
+        <br><br><table id="table2">
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Category</th>
+                <th>Load</th>
+                <th>Delete</th>
+            </tr>
+        </table>
+
+        <br><br><span id="filterTableLabel">FILTERED TABLE</span><table id="table3">
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Category</th>
+                
+            </tr>
+
+        </table>
+
+        <script src="logic.js"></script>
+    </body>
+</html>
+
+
+<!-- <html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <div id="containerMain">
+
+            <span id="filterLabel">Filter Value: </span><input type="text" id="filterValue">
+            <select  id="filterCategory">
+                <option>ID</option>
+                <option>Name</option>
+                <option>Category</option>
+                <option>Price</option>
+                <option>Manufacturer</option>
+            </select>
+            <button onclick="filterRecords();">Filter</button>
+
+            <br><br><table id="table1">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Manufacturer</th>
+                </tr>
+
+            </table>
+
+            <br><br><span id="filterTableLabel">FILTERED TABLE</span><table id="table2">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Manufacturer</th>
+                </tr>
+
+            </table>
+
+
+        </div>
+        
+        <script src="logic.js"></script>
+    </body>
+</html> -->

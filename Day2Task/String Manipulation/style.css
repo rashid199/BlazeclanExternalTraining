@@ -1,0 +1,19 @@
+body{
+    background-color: lightgray;
+    margin: 0px;
+    border: 0px;
+}
+
+#containerMain{
+    background-color: lightgray;
+    height: 580px;
+    width: 25%;
+    margin-left: 25%;
+    
+}
+
+button{
+    margin-left: 20px;
+    margin-top: 0px;
+    border: 0px;
+}

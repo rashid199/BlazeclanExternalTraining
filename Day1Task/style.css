@@ -1,0 +1,59 @@
+@font-face{
+    font-family: myFirstFont;
+    src: url("C:/Windows/Fonts/Digital-7.ttf");
+}
+
+body{
+    background-color: red;
+    border: 0px;
+    font-family: 'Orbitron', sans-serif;
+
+}
+
+#contCalculator{
+    width:400px;
+    height: 320px;
+    background-image: url(./meme\ bg\ 1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+table, tr, th, td{
+    border: 0px solid black;
+}
+
+#calcTable{
+    width:400px;
+    height: 280px;
+}
+
+input{
+    width:100%;
+    font-family: 'Orbitron', sans-serif;
+    height: 40px;
+    font-size: 20px;
+    text-align: right;
+    border-radius: 0px;
+    border: 0px;
+}
+
+button{
+    width: 100%;
+    height: 100%;
+    display:inline-block;
+    font-size: 25px;
+    border-radius: 15px;
+    border: 0px;
+    background-color: rgba(255, 255, 255, 0.37);
+    font-family: myFirstFont,sans-serif;
+
+}
+
+button:hover{
+    cursor:pointer;
+    background-color: rgba(255, 255, 255, 0.74);
+}
+
+button:focus, input:focus{
+    outline: none;
+}
