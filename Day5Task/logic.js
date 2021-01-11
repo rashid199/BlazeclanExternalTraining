@@ -175,7 +175,7 @@ function postData()
     xhr.setRequestHeader("Content-Type","application/json");
 
     console.log(targetData);
-    //xhr.send(JSON.stringify(targetData));
+    xhr.send(JSON.stringify(targetData));
 
 }
 
