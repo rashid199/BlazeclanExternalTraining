@@ -88,7 +88,7 @@ let server = http.createServer((req, resp)=>{
 
             //console.log(receivedData.ProductName);
 
-            let newkey = "ProductID";
+            let newkey = "ProductId";
             let newval = x;
 
             receivedData[newkey] = newval;
