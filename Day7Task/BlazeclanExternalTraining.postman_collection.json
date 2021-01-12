@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "f5ecc9a5-e1cf-4a9a-982e-4cf0a58847ed",
+		"name": "BlazeclanExternalTraining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getALL",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9087/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9087",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ProductName\":\"Nataraj\",\r\n    \"CategoryName\":\"Pencil\",\r\n    \"Price\":7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9087/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9087",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get/<FilterCategory>/<FilterValue>",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Transfer-Encoding",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9087/ProductId/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9087",
+					"path": [
+						"ProductId",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
