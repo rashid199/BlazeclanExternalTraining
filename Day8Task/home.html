@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    ProductId:<input id="ProductId" type="text"><br><br>
+    ProductName:<input id="ProductName" type="text"><br><br>
+    ProductCategory:<input id="ProductCategory" type="text"><br><br>
+    ProductPrice:<input id="ProductPrice" type="number"><br><br>
+    <button onclick="btnSubmit()">Submit</button>
+
+    <script type="text/javascript">
+        function btnSubmit()
+        {
+            alert("Submit clicked");
+
+            let ProductId = document.getElementById("ProductId").value;
+            let ProductName = document.getElementById("ProductName").value;
+            let ProductCategory = document.getElementById("ProductCategory").value;
+            let ProductPrice = document.getElementById("ProductPrice").value;
+
+            let Product = {};
+
+            Product["ProductName"] = ProductName;
+            Product["ProductCategory"] = ProductCategory;
+            Product["ProductPrice"] = ProductPrice;
+            Product["ProductId"] = ProductId;
+
+            console.log(JSON.stringify(Product));
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.onload = function()
+            {
+                if(xhr.status == 200)
+                {
+                    console.log("Added successfully");
+                }
+
+                else
+                {
+                    console.log("Add unsuccessful");   
+                }
+            };
+
+            xhr.onerror = function()
+            {
+                console.log("Some error occured"); 
+            };
+
+            xhr.open('POST','http://localhost:9087');
+            xhr.setRequestHeader("Content-Type","application/json");
+
+            xhr.send(JSON.stringify(Product));
+
+        }
+    </script>
+
+</body>
+</html>
