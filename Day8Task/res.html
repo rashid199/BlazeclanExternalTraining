@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,tr,th,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="getData()">GET DATA</button><br><br>
+    <table id="resTable">
+        <tr>
+            <th>ProductId</th>
+            <th>ProductName</th>
+            <th>ProductCategory</th>
+            <th>ProductPrice</th>
+        </tr>
+    </table>
+
+    <script type="text/javascript">
+        
+        function getData()
+        {
+            let xhr = new XMLHttpRequest();
+            let receivedData;
+
+            xhr.onload = function()
+            {
+                if(xhr.status == 200)
+                {
+                    receivedData = JSON.parse(xhr.response);
+                    console.log(receivedData);
+
+                    var table = document.getElementById("resTable");
+                    while(true)
+                    {
+                        if(table.rows.length == 1){break;}
+                        table.deleteRow(-1);
+                    }
+                    
+                    for(let x = 0; x<receivedData.length; x++)
+                    {
+                        var row = table.insertRow(-1);
+
+                        let y = x.toString();
+
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+
+                        cell1.innerHTML = receivedData[y]["ProductId"];
+                        cell2.innerHTML = receivedData[y]["ProductName"];
+                        cell3.innerHTML = receivedData[y]["CategoryName"];
+                        cell4.innerHTML = receivedData[y]["Price"];
+                    }
+
+                    
+                }
+
+                else
+                {
+                    console.log("Error occured whie sending GET request");
+                }
+            };
+
+            xhr.onerror = function()
+            {
+                console.log("Some error occured");
+            };
+
+            xhr.open('GET','http://localhost:9087/resPost');
+            xhr.send();
+
+        }
+
+    </script>
+</body>
+</html>

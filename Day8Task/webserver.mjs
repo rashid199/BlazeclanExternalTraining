@@ -19,7 +19,6 @@ let ProductsInfo = [
 
 let server = http.createServer((req,resp) => {
 
-
     if(req.method === "POST")
     {
         let receivedData;
@@ -43,6 +42,7 @@ let server = http.createServer((req,resp) => {
 
     if(req.url === '/home')
     {
+ 
         console.log(req.url);
 
         fs.readFile('./home.html',(error,file) => 
@@ -64,7 +64,42 @@ let server = http.createServer((req,resp) => {
         });
     }
 
+    else if(req.url === '/res')
+    {
+        console.log(req.url);
 
+        fs.readFile('./res.html',(error,file) => 
+        {
+
+            
+            if(error)
+            {
+                resp.writeHead(404, {'Content-Type': 'text/html'});
+                resp.write(error.message);
+                resp.end();
+            }
+
+            console.log(`File read = ${file}`);
+            resp.writeHead(200, {'Content-Type': 'text/html'});
+            resp.write(file); 
+            resp.end();
+
+        });
+    }
+
+    else if(req.url === '/resPost')
+    {
+        console.log("resPost");
+
+        if(req.method === "GET")
+        {
+            resp.writeHead(200,{'Content-Type': 'application/json'});
+            resp.write(JSON.stringify(ProductsInfo));
+            resp.end();
+        }
+    }
+
+    
 
     else
     {
