@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>The Home Page Rendered using Express.js App</h1>
+    <input type="button" value="Click Me" id="btn" onclick="getValue()">
+
+    <script type="text/javascript">
+
+        function getValue()
+        {
+            let xhr = new XMLHttpRequest();
+
+            xhr.onload = function()
+            {
+                if(xhr.status == 200)
+                {
+                    console.log(`In onLoad ${xhr.response}`);
+                }
+            }
+
+            xhr.onerror = function()
+            {                 
+                console.log('Some Error Occured with Http Communication');
+            }
+
+            xhr.open("GET","http://localhost:9090/getAll");
+            console.log(btoa("farhan:farhan"));
+            xhr.setRequestHeader("Authorization","basic farhan:farhan");
+            xhr.send();
+        } 
+        
+    </script>
+</body>
+</html>
