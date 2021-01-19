@@ -3,6 +3,7 @@ import {Departments, Designations} from './constants';
 import { Logic } from "./Logic";
 import DropDownComponent from './dropdownComponent';
 import TableComponent from './tableComponent';
+
 class EmployeeComponent extends Component {
     /**
      * @param {any} props
@@ -18,8 +19,7 @@ class EmployeeComponent extends Component {
             departments: Departments, // store constant array
             designations: Designations, // store constant array
             employees:[],
-            tableColumnHeaders:[],
-            filterCol:''
+            tableColumnHeaders:[]
         };
         this.logic = new Logic();
 
@@ -27,6 +27,7 @@ class EmployeeComponent extends Component {
 
         this.state.tableColumnHeaders = Object.keys(this.state.employees[0]);
         this.rowCount = 3;
+        this.cols = [{Header:'EmpNo',accessor:'EmpNo'},{Header:'EmpName',accessor:'EmpName'},{Header:'DeptName',accessor:'DeptName'},{Header:'Designation',accessor:'Designation'},{Header:'Salary',accessor:'Salary'}]
     
     }
     /**
@@ -153,6 +154,7 @@ class EmployeeComponent extends Component {
                           handleSort={ (col,idx)=>this.colSort(col,idx)} >
 
             </TableComponent>
+
             </div>
          );
     }
