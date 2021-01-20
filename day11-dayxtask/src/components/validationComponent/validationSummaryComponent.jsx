@@ -8,7 +8,7 @@ class ValidationSummaryComponent extends Component {
     render() 
     { 
         //console.log(typeof(this.props.objMap),this.props.objMap);
-        console.log(typeof(this.props.errArr),this.props.errArr);
+        //console.log(typeof(this.props.errArr),this.props.errArr);
         //this.newerrMap = this.props.errMap;
 
         

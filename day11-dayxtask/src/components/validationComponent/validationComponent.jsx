@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ValidationSummaryComponent from './validationSummaryComponent';
+import {Logic} from './../employeeComponent/Logic';
 
 class ValidationComponent extends Component{
     constructor(props)
@@ -11,15 +12,19 @@ class ValidationComponent extends Component{
               empName:'',
               isempNoValid:false,
               isempNameValid:false,
-              isReloaded:true
+              doesExist:false
         };
 
         this.errMap = new Map();
+
+        let LogicObj = new Logic();
+
+        this.employees = LogicObj.getEmployees();
     }
 
     isFormValid()
     {
-        if(this.state.isempNameValid && this.state.isempNoValid)
+        if(this.state.isempNameValid && this.state.isempNoValid && !this.state.doesExist)
         {
             return true;
         }
@@ -38,6 +43,7 @@ class ValidationComponent extends Component{
         this.setState({empName:''});
         this.setState({isempNameValid:false});
         this.setState({isempNoValid:false});
+        this.setState({doesExist:false});
 
     }
 
@@ -49,20 +55,39 @@ class ValidationComponent extends Component{
         this.validateInput(evt.target.name,evt.target.value);    
     }
 
+    doesEmpExist(value)
+    {
+        let res = this.employees.filter((obj)=>(obj["EmpNo"]==value))
+        console.log(res);
+        if(res.length===0)return false;
+
+        return true;
+    }
+
     validateInput(name,value)
     {
+        console.log(this.employees);
         if(name === "empNo")
         {
             if(parseInt(value)<=0 || value.length>10 || value.length===0)
             {
                 this.setState({isempNoValid:false});
+                this.setState({doesExist:false});
                 this.errMap.set("empnoErr","Enter a positive value having length less than 11 characters"); 
+            }
+
+            else if(this.doesEmpExist(value))
+            {
+                this.setState({doesExist:true});
+                this.errMap.set("existentialErr","Employee already exists :(");
             }
 
             else
             {
                 this.setState({isempNoValid:true});
+                this.setState({doesExist:false});
                 this.errMap.delete("empnoErr");
+                this.errMap.delete("existentialErr");
             }
         }
 
@@ -97,6 +122,9 @@ class ValidationComponent extends Component{
                                onChange = {this.handleChange.bind(this)} id="inputNo" />
                         <div className = "alert alert-danger" hidden={this.state.isempNoValid}>
                                 Enter a positive value having length less than 11 characters
+                        </div>
+                        <div className = "alert alert-danger" hidden={!this.state.doesExist}>
+                                Employee already exists :(
                         </div>
                     </div>
 
