@@ -8,14 +8,14 @@ class ValidationSummaryComponent extends Component {
     render() 
     { 
         //console.log(typeof(this.props.objMap),this.props.objMap);
-        console.log(typeof(this.props.errMap),this.props.errMap);
+        console.log(typeof(this.props.errArr),this.props.errArr);
         //this.newerrMap = this.props.errMap;
 
         
 
-        if( /*this.props.objMap === undefined || Object.keys(this.props.objMap).length == 0|| */this.props.errMap === undefined || this.props.errMap.size===0) 
+        if( /*this.props.objMap === undefined || Object.keys(this.props.objMap).length == 0|| */this.props.errArr === undefined || this.props.errArr.length===0) 
         {
-            return (<div>All Cool</div>)
+            return (<strong>All Cool</strong>)
         } 
         else 
         {
@@ -26,9 +26,10 @@ class ValidationSummaryComponent extends Component {
                     //     <div>{val}</div>
                     // ))
 
-                    this.props.errMap.forEach((val,idx) => (
-                        <div key={idx}>{val}</div>   
-                     ))
+                    this.props.errArr.map((val,idx)=>(
+                        <strong key={idx}>{val}</strong>
+                        
+                    ))
                         
                 }
                 </div>

@@ -121,7 +121,7 @@ class ValidationComponent extends Component{
 
                 </form>
 
-                <ValidationSummaryComponent objMap={Object.fromEntries(this.errMap)} errMap = {this.errMap} ></ValidationSummaryComponent>
+                <ValidationSummaryComponent objMap={Object.fromEntries(this.errMap)} errArr = {Array.from(this.errMap.values())} ></ValidationSummaryComponent>
 
             </div>
         );
