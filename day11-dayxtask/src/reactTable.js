@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-//import './components/employeeComponent/style.css';
+import './components/employeeComponent/style.css';
 
 // importing bootstrap
 import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -13,9 +13,7 @@ import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // import ParentComponent from "./components/propsstate/parentChild";
 // import StateComponent from './components/propsstate/stateComponent';
 
-//import EmployeeComponent from './components/employeeComponent/employeeComponent';
-
-import ValidationComponent from './components/validationComponent/validationComponent';
+import EmployeeComponent from './components/employeeComponent/employeeComponent';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -26,7 +24,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ValidationComponent/>
+    <EmployeeComponent/>
   </React.StrictMode>,
   document.getElementById('root')
 );
