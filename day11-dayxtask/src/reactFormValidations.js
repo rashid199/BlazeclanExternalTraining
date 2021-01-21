@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 //import './components/employeeComponent/style.css';
-import './mern/style.css';
 
 // importing bootstrap
 import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -13,13 +12,10 @@ import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // import FirstComponent from './components/firstComponent';
 // import ParentComponent from "./components/propsstate/parentChild";
 // import StateComponent from './components/propsstate/stateComponent';
+
 //import EmployeeComponent from './components/employeeComponent/employeeComponent';
-//import ValidationComponent from './components/validationComponent/validationComponent';
-import MainComponent from './mern/mainComponent';
-//import ListEmployees from './mern/listEmployees';
 
-import {BrowserRouter} from 'react-router-dom';
-
+import ValidationComponent from './components/validationComponent/validationComponent';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -30,9 +26,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-    <MainComponent></MainComponent>
-    </BrowserRouter>
+    <ValidationComponent/>
   </React.StrictMode>,
   document.getElementById('root')
 );

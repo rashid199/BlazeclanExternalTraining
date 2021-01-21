@@ -23,20 +23,53 @@ const sequelize = new Sequelize("company","root","",{
     }
 });
 
-// async function getListEmpDesignation()
-// {
-//     let r = await sequelize.query('CALL listEmployees("MANAGER");');
-//     console.log(JSON.stringify(r));
-//     return r;
-// }
-// getListEmpDesignation().then((r)=>{console.log(JSON.stringify(r));}).catch((e)=>{console.log(e)});
+
+async function getAllEmployeesNo()
+{
+    let r = await sequelize.query('CALL getAllEmployeesNo();');
+    //console.log(JSON.stringify(r));
+    let res = [];
+    r.map((obj,ind)=>{
+        res.push(obj.EmpNo);
+    })
+
+    console.log(res);
+    return res;
+}
+
+async function getListEmpDesignation()
+{
+    let r = await sequelize.query('CALL getAllDeptNo();');
+    let res = [];
+    r.map((obj,ind)=>{
+        res.push(obj.DeptNo);
+    })
+
+    console.log(res);
+    return res;
+}
+
 
 
 const dept = require(path.join(__dirname,'./models/department'))(sequelize, Sequelize.DataTypes);
 const emp = require(path.join(__dirname,'./models/employee'))(sequelize, Sequelize.DataTypes);
 
 
-instance.get('',(req,resp) => {
+instance.get('/api/deptNo',(req,resp)=>{
+
+    getListEmpDesignation().then((res)=>{resp.send({response:res});resp.end();}).catch((e)=>{
+        console.log(`error ${e}`);
+    });
+})
+
+instance.get('/api/empNo',(req,resp)=>{
+
+    getAllEmployeesNo().then((res)=>{resp.send({response:res});resp.end();}).catch((e)=>{
+        console.log(`error ${e}`);
+    });
+})
+
+instance.get('/api/emp',(req,resp) => {
     sequelize.sync({
         force:false
     }).then(()=>emp.findAll())
@@ -44,7 +77,7 @@ instance.get('',(req,resp) => {
             .catch((error)=>resp.send({statusCode:500, data:error}));
 });
 
-instance.get('/:id',(req,resp)=>{
+instance.get('/api/emp/:id',(req,resp)=>{
     let id = req.params.id;
     sequelize.sync({
         force:false
@@ -57,7 +90,7 @@ instance.get('/:id',(req,resp)=>{
 });
 
 
-instance.post('',(req,resp)=>{
+instance.post('/api/emp/',(req,resp)=>{
     let Emp = {
         EmpNo : parseInt(req.body.EmpNo),
         EmpName : req.body.EmpName,
@@ -78,7 +111,7 @@ instance.post('',(req,resp)=>{
 
 });
 
-instance.put('/:id', (req, resp) => {
+instance.put('/api/emp/:id', (req, resp) => {
     let id = req.params.id;
     sequelize.sync({
             force: false 
@@ -102,7 +135,7 @@ instance.put('/:id', (req, resp) => {
         .catch((error) => resp.status(500).send({ statusCode: 500, data: `Error in Update ${error}` }));
 });
 
-instance.delete('/:id', (req, resp) => {
+instance.delete('/api/emp/:id', (req, resp) => {
     let id = req.params.id;
 
     sequelize.sync({
@@ -121,7 +154,7 @@ instance.delete('/:id', (req, resp) => {
         .catch((error) => resp.status(500).send({ statusCode: 500, data: `Error in Delete ${error}` }));
 });
 
-instance.get('/getDeptEmp/:deptValue',(req,resp)=>{
+instance.get('api/getDeptEmp/:deptValue',(req,resp)=>{
     let deptValue = req.params.deptValue;
 
     async function getDeptEmp(){
@@ -135,7 +168,7 @@ instance.get('/getDeptEmp/:deptValue',(req,resp)=>{
     });
 });
 
-instance.get('/getTax',(req,resp)=>{
+instance.get('/api/emp/getTax',(req,resp)=>{
 
     async function getTax(){
      
