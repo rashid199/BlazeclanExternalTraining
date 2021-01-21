@@ -2,3 +2,13 @@
     cursor: pointer;
     background-color: rgba(202, 188, 188, 0.623);
 }
+
+#dropdown,#ip,#btn{
+    width:30%;
+    display: inline-block;
+    margin-left:20px;
+}
+
+#btn{
+    width:10%;
+}

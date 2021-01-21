@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import {HttpService} from './httpService';
-import { Link } from "react-router-dom";
+import {Route, Link, Switch, Redirect} from 'react-router-dom';
 
 class ListEmployees extends Component
 {
@@ -9,7 +9,9 @@ class ListEmployees extends Component
         super(props);
         this.state={
             empArr:[],
-            tableHeaders:[]
+            tableHeaders:[],
+            searchCol:'',
+            searchVal:''
         };
 
         this.serv = new HttpService();
@@ -27,6 +29,13 @@ class ListEmployees extends Component
 
     componentWillUnmount(){
         console.log('List Component is UnMounted');
+    }
+
+    handleChange(evt)
+    {
+        this.setState({[evt.target.name]:evt.target.value});
+        console.log(evt.target.value);
+
     }
 
     deleteRecord(EmpNo)
@@ -53,6 +62,40 @@ class ListEmployees extends Component
 
     }
 
+    search()
+    {
+        let col = this.state.searchCol;
+        let val = this.state.searchVal;
+
+        if(col === "EmpNo" || col === "Salary" || col === "DeptNo")
+        {
+            val = parseInt(val);
+        }
+
+        console.log(val);
+
+        let res = this.state.empArr.filter((obj)=>(
+                obj[col]===val
+            ));
+
+        if(res.length===0)
+        {
+            alert("No Search result found");
+        }
+
+        else
+        {
+            this.setState({empArr:res});
+        }
+        
+    }
+
+    reset()
+    {
+        window.history.go(0);
+    }
+
+
 
     render() { 
         if(this.state.empArr.length === 0) {
@@ -61,6 +104,43 @@ class ListEmployees extends Component
         return (  
             <div className="container">
              <h2>List of employees</h2>
+             <div>
+                 <select className="form-control" 
+                         id="dropdown" 
+                         name="searchCol"
+                         onChange={this.handleChange.bind(this)}
+                         value={this.state.searchCol}>
+                     
+                        {
+                            this.state.tableHeaders.map((val,idx)=>(
+                                <option key={idx}>{val}</option>
+                            ))
+                        }
+                 </select>
+                 
+                 <div className="form-group" id="ip">
+                    <label>Search Value:</label>
+                    <input className="form-control" 
+                           name="searchVal" 
+                           value={this.state.searchVal}
+                           onChange={this.handleChange.bind(this)}/>
+
+                 </div>
+                 
+                 <button className="btn btn-outline-success" 
+                         id="btn"
+                         onClick={this.search.bind(this)} >Search</button>
+                 
+                 <button className="btn btn-outline-warning" 
+                         id="btn" onClick={this.reset.bind(this)}
+                         >Reset
+                           {/* <Link to="/">Reset</Link> */}
+
+                         </button>
+
+
+                 <br/>
+             </div>
               <table className="table table-bordered table-striped table-dark table-hover">
                 <thead>
 
@@ -95,6 +175,12 @@ class ListEmployees extends Component
                   }
                 </tbody>
               </table>
+
+              {/* <Switch>
+                    <Route exact path="/" component={ListEmployees}></Route>
+                    <Redirect to="/"></Redirect>
+                </Switch> */}
+
             </div>
         );}
     }

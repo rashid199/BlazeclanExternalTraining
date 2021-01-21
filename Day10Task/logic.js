@@ -69,6 +69,7 @@ instance.get('/api/empNo',(req,resp)=>{
     });
 })
 
+
 instance.get('/api/emp',(req,resp) => {
     sequelize.sync({
         force:false

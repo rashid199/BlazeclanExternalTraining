@@ -55,4 +55,10 @@ export class HttpService
         let response = axios.delete(`${this.url}/api/emp/${EmpNo}`);
         return response;
     }
+
+    // searchVal(col,val)
+    // {
+    //     let response = axios.get(`${this.url}/api/search/${col}/${val}`);
+    //     return response;
+    // }
 }
