@@ -22,7 +22,7 @@ class ValidationSummaryComponent extends Component {
             return ( 
                 <div>
                 {
-                    // this.props.objMap.forEach((val,idx)=>(
+                    // this.props.objMap.forEntries.forEach((val,idx)=>(
                     //     <div>{val}</div>
                     // ))
 
