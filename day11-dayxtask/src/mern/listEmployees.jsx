@@ -9,6 +9,7 @@ class ListEmployees extends Component
         super(props);
         this.state={
             empArr:[],
+            masterEmpArr:[],
             tableHeaders:[],
             searchCol:'',
             searchVal:''
@@ -21,6 +22,7 @@ class ListEmployees extends Component
         console.log("List Emp Component Mounted");
         this.serv.getAllEmp().then((resp)=>{
             this.setState({empArr:resp.data.response});
+            this.setState({masterEmpArr:resp.data.response});
             this.setState({tableHeaders:Object.keys(resp.data.response[0])});
         }).catch((error)=>{
             console.log(error.message);
@@ -67,6 +69,12 @@ class ListEmployees extends Component
         let col = this.state.searchCol;
         let val = this.state.searchVal;
 
+        // this.serv.getAllEmp().then((resp)=>{
+        //     this.setState({empArr:resp.data.response});
+        // }).catch((error)=>{
+        //     console.log(error.message);
+        // })
+
         if(col === "EmpNo" || col === "Salary" || col === "DeptNo")
         {
             val = parseInt(val);
@@ -74,7 +82,7 @@ class ListEmployees extends Component
 
         console.log(val);
 
-        let res = this.state.empArr.filter((obj)=>(
+        let res = this.state.masterEmpArr.filter((obj)=>(
                 obj[col]===val
             ));
 
