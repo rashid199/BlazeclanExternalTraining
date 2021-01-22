@@ -69,11 +69,6 @@ class ListEmployees extends Component
         let col = this.state.searchCol;
         let val = this.state.searchVal;
 
-        // this.serv.getAllEmp().then((resp)=>{
-        //     this.setState({empArr:resp.data.response});
-        // }).catch((error)=>{
-        //     console.log(error.message);
-        // })
 
         if(col === "EmpNo" || col === "Salary" || col === "DeptNo")
         {
