@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Route, Link, Switch, Redirect} from 'react-router-dom';
 import {HttpService} from './../mern/httpService';
 import TableComponent from './tableComponent';
+import AddEmployeeComponent from './addEmployee';
 
 const MainComponent=()=>{
 
@@ -13,13 +14,15 @@ const MainComponent=()=>{
                 <tbody>
                     <tr>
                         <td><Link to="/">Employee List</Link></td>
-                        <td>Add Employee</td>
+                        {/* <td><Link to={{pathname:"/",state:{dataSource:empArr}}}></Link></td> */}
+                        <td><Link to="/addEmp">Add Employee</Link></td>
                     </tr>
                 </tbody>
             </table>
             {/* <TableComponent dataSource={empArr}></TableComponent> */}
             <Switch>
                 <Route exact path="/" component={TableComponent}></Route>
+                <Route exact path="/addEmp" component={AddEmployeeComponent}></Route>
                 <Redirect to="/"></Redirect>
             </Switch>
         </div>
