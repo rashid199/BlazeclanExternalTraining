@@ -1,20 +1,38 @@
 import React, {useState, useEffect} from 'react';
 import {HttpService} from './../mern/httpService';
 
-const AddEmployeeComponent=(props)=>{
+const UpdateEmployeeComponent=(props)=>{
 
     let serv = new HttpService();
     const [employee,addEmployee] = useState({EmpNo:0,EmpName:'',Designation:'',Salary:0,DeptNo:0});
     const [deptNoArr, getDeptArr] = useState([]);
     const [empNoArr, getEmpArr] = useState([]);
     const [errFlag, changeErrFlag] = useState({isEmpNoValid:false, isEmpNameValid:false, isSalaryValid:false, isDeptNoValid:false, isDesignationValid:false});
+    let empArr = [];
 
     useEffect(()=>{
-        console.log("Add employee component mounted");
-        
-        serv.getAllDeptNo().then((resp)=>{getDeptArr(resp.data.response)}).catch((error)=>{console.log(error.message)});
-        serv.getAllEmpNo().then((resp)=>{getEmpArr(resp.data.response)}).catch((error)=>{console.log(error.message)});
+        console.log("Update employee component mounted");
+        let empArrID = props.match.params.id;
 
+        serv.getAllEmp().then((resp)=>{
+            empArr = resp.data.response;
+            addEmployee(empArr[empArrID]);
+        }).catch((e)=>{
+            console.log(e.message);
+        });
+
+        serv.getAllDeptNo().then((resp)=>{getDeptArr(resp.data.response)}).catch((error)=>{console.log(error.message)});
+
+        serv.getAllEmpNo().then((resp)=>{
+            getEmpArr(resp.data.response);
+        }
+        ).catch((error)=>{
+            console.log(error.message)
+        });
+
+
+
+        
         
     },[])
 
@@ -106,7 +124,7 @@ const AddEmployeeComponent=(props)=>{
             addEmployee({...employee, EmpNo:parseInt(val)});
 
             
-            if(val<0 || empNoArr.includes(parseInt(val)))
+            if(val<0)
             {
                 changeErrFlag({...errFlag,isEmpNoValid:false});
             }
@@ -160,9 +178,9 @@ const AddEmployeeComponent=(props)=>{
     {
         console.log(employee);
         
-        serv.postEmp(employee).then((resp)=>
+        serv.putEmp(employee).then((resp)=>
             {
-                alert(`Added ${JSON.stringify(employee)}`);
+                alert(`Updated ${JSON.stringify(employee)}`);
                 props.history.push("/");
             }
             ).catch((error)=>{
@@ -255,4 +273,4 @@ const AddEmployeeComponent=(props)=>{
     
 }
 
-export default AddEmployeeComponent;
+export default UpdateEmployeeComponent;

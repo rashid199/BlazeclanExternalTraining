@@ -10,8 +10,8 @@ instance.use(bodyParser.json());
 instance.use(bodyParser.urlencoded({ extended: false }));
 instance.use(cors());
 
-const sequelize = new Sequelize("company","root","",{
-    host:'localhost',
+const sequelize = new Sequelize("Company","admin","admin12345",{
+    host:'database-1.cyudcmrtfbww.us-east-2.rds.amazonaws.com',
     dialect:'mysql',
     pool:{
             max:5,

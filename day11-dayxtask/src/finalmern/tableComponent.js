@@ -1,5 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {HttpService} from './../mern/httpService';
+import {Link} from 'react-router-dom';
+
 
 const TableComponent=(props)=>{
 
@@ -14,6 +16,20 @@ const TableComponent=(props)=>{
 
     },[]);
 
+    const delRecordInComponent = useCallback(
+        (evt) => {
+
+            let empArrID = evt.target.value;
+            console.log(empArr[empArrID].EmpNo);
+
+            serv.delEmp(empArr[empArrID].EmpNo).then((resp)=>{
+                window.location.reload();
+            }).catch((e)=>{console.log(e.message)});
+        },
+        [empArr]
+    );
+
+
     if(empArr == undefined || empArr.length==0)
     {
         return(<h2>No Records found :( </h2>);
@@ -23,6 +39,7 @@ const TableComponent=(props)=>{
     {
         let tableData = empArr;
         let tableHeaders = Object.keys(empArr[0]);
+
         return(
             <div>
 
@@ -44,7 +61,26 @@ const TableComponent=(props)=>{
                                         tableHeaders.map((colVal,colIdx)=>(
                                             <td key={colIdx}>{obj[colVal]}</td>
                                         ))
+                                    
+                                        
                                     }
+
+                                    <td>
+                                        <button className="btn btn-light">
+                                            <Link to={`/updateEmp/${idx}`}>Edit</Link>
+                                        </button>
+                                    </td>
+
+                                    <td>
+                                        <button className="btn btn-danger" 
+                                                onClick={delRecordInComponent}
+                                                value={idx}>
+
+                                                    Delete
+
+                                        </button>
+                                    </td>
+
                                 </tr>
                             ))
                         }
@@ -58,18 +94,3 @@ const TableComponent=(props)=>{
 }
 
 export default TableComponent;
-
-/*
-        const [empArr,getEmpArr] = useState([]);
-    let serv = new HttpService();
-
-    const [employee,updateEmployee]=useState({EmpNo:0,EmpName:'',Designation:'',Salary:0,DeptNo:0});
-
-    useEffect(()=>{
-        // componentDidMount
-        console.log('Main Component mounted');
-
-        serv.getAllEmp().then((resp)=>{getEmpArr(resp.data.response)}).catch((error)=>{console.log(error.message)});
-
-    },[]);
-*/
