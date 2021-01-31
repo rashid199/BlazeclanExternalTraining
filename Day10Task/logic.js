@@ -4,11 +4,20 @@ const cors = require('cors');
 const path = require('path');
 const {Sequelize, Model, DataTypes} = require('sequelize');
 const { response } = require('express');
+let jwt = require('jsonwebtoken');
 
 let instance = express();
 instance.use(bodyParser.json());
 instance.use(bodyParser.urlencoded({ extended: false }));
-instance.use(cors());
+instance.use(cors({
+    origin: "*", // all origins
+    methods: "*", // all http methods
+    allowedHeaders: "*" // all headers in HTTP request
+}));
+
+const jwtSettings = {
+    jwtSecret: 'sbisecret007700tercesibs'
+};
 
 const sequelize = new Sequelize("Company","admin","admin12345",{
     host:'database-1.cyudcmrtfbww.us-east-2.rds.amazonaws.com',
@@ -27,7 +36,6 @@ const sequelize = new Sequelize("Company","admin","admin12345",{
 async function getAllEmployeesNo()
 {
     let r = await sequelize.query('CALL getAllEmployeesNo();');
-    //console.log(JSON.stringify(r));
     let res = [];
     r.map((obj,ind)=>{
         res.push(obj.EmpNo);
@@ -53,6 +61,7 @@ async function getListEmpDesignation()
 
 const dept = require(path.join(__dirname,'./models/department'))(sequelize, Sequelize.DataTypes);
 const emp = require(path.join(__dirname,'./models/employee'))(sequelize, Sequelize.DataTypes);
+const users = require(path.join(__dirname,'./models/Users'))(sequelize, Sequelize.DataTypes);
 
 
 instance.get('/api/deptNo',(req,resp)=>{
@@ -111,6 +120,42 @@ instance.post('/api/emp/',(req,resp)=>{
              }).catch((e)=>{resp.status(500).send({statusCode:500, error:"Invalid values"});});
 
 });
+
+async function valUser(req,resp)
+{
+    let creds = {
+        Username:req.body.Username,
+        Password:req.body.Password
+    }
+
+    await sequelize.sync({force:false});
+
+    const find = await users.findOne({where:{UserName:creds.Username}});
+
+    if(find === null)
+    {
+        return resp.status(409).send({statusCode:409,response:`Sorry! ${creds.Username} is not found`});
+    }
+
+    if(find.Password.trim() !== creds.Password.trim()) // unauthorized
+    {
+        return resp.status(401).send({statusCode:401,response:`Sorry!! Password for ${creds.Username} is incorect`});
+    }    
+
+    const token  = jwt.sign({creds}, jwtSettings.jwtSecret, {
+        expiresIn:3600
+    });
+
+    return resp.status(200).send({
+        statusCode:200,
+        response: `Login Successful for ${creds.Username}`,
+        authenticated: true,
+        token:token
+    });
+
+}
+
+instance.post('/api/users/auth',(req,resp)=>valUser(req,resp));
 
 instance.put('/api/emp/:id', (req, resp) => {
     let id = req.params.id;

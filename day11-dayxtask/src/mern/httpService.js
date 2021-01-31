@@ -56,9 +56,13 @@ export class HttpService
         return response;
     }
 
-    // searchVal(col,val)
-    // {
-    //     let response = axios.get(`${this.url}/api/search/${col}/${val}`);
-    //     return response;
-    // }
+    authUser(creds)
+    {
+        let response = axios.post(`${this.url}/api/users/auth`,creds,{
+            //@ts-ignore
+            'Content-Type':'application/json'
+        });
+
+        return response;
+    }
 }

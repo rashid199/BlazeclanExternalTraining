@@ -17,6 +17,7 @@ import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 //import ValidationComponent from './components/validationComponent/validationComponent';
 import MainComponent from './finalmern/mainComponent';
 //import ListEmployees from './mern/listEmployees';
+import LoginComponent from './finalmern/jwtClient';
 
 import {BrowserRouter} from 'react-router-dom';
 
